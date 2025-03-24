@@ -1,0 +1,69 @@
+body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-direction: column;
+}
+
+.container {
+    width: 90%;
+    max-width: 800px;
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    height: 100%;
+}
+
+h2, h3 {
+    color: #4CAF50;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input, textarea {
+    width: 90%;
+    padding: 8px;
+    margin: 5px 0;
+    background: #333;
+    color: #fff;
+    border: 1px solid #4CAF50;
+    border-radius: 5px;
+}
+
+button {
+    background: #4CAF50;
+    color: white;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+    width: 90%;
+    border-radius: 5px;
+}
+
+button:hover {
+    background: #45a049;
+}
+
+.resume-preview {
+    margin-top: 20px;
+    padding: 20px;
+    background: #252525;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+    
+    width: 90%; /* Ensures full width */
+    min-height: 100%; /* Ensures it grows with content */
+    display: flex; /* Helps in structuring content */
+    flex-direction: column; /* Stacks elements properly */
+    align-items: flex-start; /* Aligns items properly */
+}
+
