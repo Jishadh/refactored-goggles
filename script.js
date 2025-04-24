@@ -9,49 +9,43 @@ function generateResume() {
 function downloadPDF() {
     const element = document.querySelector('.resume-preview');
 
-    // Inline important styles for PDF
-    const styledHTML = `
-        <html>
-        <head>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    background-color: #252525;
-                    color: white;
-                    padding: 20px;
-                }
-                h2, h3 {
-                    color: #4CAF50;
-                }
-                p, span, strong {
-                    font-size: 14px;
-                    line-height: 1.6;
-                }
-                .resume-preview {
-                    background-color: #252525;
-                    padding: 20px;
-                    border-radius: 10px;
-                }
-            </style>
-        </head>
-        <body>
-            ${element.innerHTML}
-        </body>
-        </html>
-    `;
+    // Clone and apply full inline styling
+    const cloned = element.cloneNode(true);
+    cloned.style.backgroundColor = "#252525";
+    cloned.style.color = "white";
+    cloned.style.padding = "20px";
+    cloned.style.borderRadius = "10px";
+    cloned.style.width = "100%";
+    cloned.style.boxSizing = "border-box";
+    cloned.style.fontFamily = "Arial, sans-serif";
 
-    // Create a temporary iframe to render styled content
-    const iframe = document.createElement('iframe');
-    document.body.appendChild(iframe);
-    iframe.style.display = 'none';
-    const doc = iframe.contentWindow.document;
+    // Container to wrap the styled resume
+    const container = document.createElement('div');
+    container.style.backgroundColor = "#252525";
+    container.style.padding = "20px";
+    container.style.color = "white";
+    container.style.width = "100%";
+    container.style.fontFamily = "Arial, sans-serif";
+    container.appendChild(cloned);
 
-    doc.open();
-    doc.write(styledHTML);
-    doc.close();
-
-    iframe.onload = function () {
-        html2pdf().from(iframe.contentDocument.body).save('Resume.pdf');
-        document.body.removeChild(iframe); // Clean up
+    const opt = {
+        margin:       0.5,
+        filename:     'Resume.pdf',
+        image:        { type: 'jpeg', quality: 1 },
+        html2canvas:  {
+            scale: 2,
+            useCORS: true,
+            backgroundColor: "#252525", // consistent dark bg
+            allowTaint: true
+        },
+        jsPDF:        {
+            unit: 'in',
+            format: 'a4',
+            orientation: 'portrait'
+        },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] } // avoid awkward breaks
     };
+
+    html2pdf().set(opt).from(container).save();
 }
+
