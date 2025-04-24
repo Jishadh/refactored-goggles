@@ -9,43 +9,54 @@ function generateResume() {
 function downloadPDF() {
     const element = document.querySelector('.resume-preview');
 
-    // Clone and apply full inline styling
+    // Clone resume preview content
     const cloned = element.cloneNode(true);
-    cloned.style.backgroundColor = "#252525";
-    cloned.style.color = "white";
-    cloned.style.padding = "20px 20px 40px 20px"; // top, right, bottom, left
-    cloned.style.borderRadius = "10px";
-    cloned.style.width = "100%";
-    cloned.style.boxSizing = "border-box";
-    cloned.style.fontFamily = "Arial, sans-serif";
 
-    // Container to wrap the styled resume
-    const container = document.createElement('div');
-    container.style.backgroundColor = "#252525";
-    container.style.padding = "20px 20px 40px 20px"; // top, right, bottom, left
-    container.style.color = "white";
-    container.style.width = "100%";
-    container.style.fontFamily = "Arial, sans-serif";
-    container.appendChild(cloned);
+    // Apply inline styles to ensure full styling carries into the PDF
+    Object.assign(cloned.style, {
+        backgroundColor: "#252525",
+        color: "#ffffff",
+        padding: "20px",
+        margin: "0",
+        width: "100%",
+        borderRadius: "10px",
+        boxSizing: "border-box",
+        fontFamily: "Arial, sans-serif",
+        minHeight: "100%", // ensures background stretches
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between" // this helps bottom stay padded
+    });
 
+    // Wrap the clone in a new container
+    const wrapper = document.createElement('div');
+    Object.assign(wrapper.style, {
+        backgroundColor: "#252525",
+        padding: "30px",
+        width: "100%",
+        minHeight: "100%",
+        boxSizing: "border-box",
+    });
+
+    wrapper.appendChild(cloned);
+
+    // PDF options
     const opt = {
-        margin:       0.5,
+        margin:       0,
         filename:     'Resume.pdf',
         image:        { type: 'jpeg', quality: 1 },
         html2canvas:  {
             scale: 2,
             useCORS: true,
-            backgroundColor: "#252525", // consistent dark bg
-            allowTaint: true
+            backgroundColor: "#252525",
         },
-        jsPDF:        {
+        jsPDF: {
             unit: 'in',
             format: 'a4',
             orientation: 'portrait'
         },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] } // avoid awkward breaks
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
     };
 
-    html2pdf().set(opt).from(container).save();
+    html2pdf().set(opt).from(wrapper).save();
 }
-
