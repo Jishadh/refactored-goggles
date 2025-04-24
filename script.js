@@ -14,8 +14,8 @@ function downloadPDF() {
 
     // Apply inline styles to ensure full styling carries into the PDF
     Object.assign(cloned.style, {
-        backgroundColor: "#252525",
-        color: "#ffffff",
+        backgroundColor: "#252525", // Dark background for PDF
+        color: "#ffffff",           // White text color
         padding: "20px",
         margin: "0",
         width: "100%",
@@ -25,17 +25,20 @@ function downloadPDF() {
         minHeight: "100%", // ensures background stretches
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between" // this helps bottom stay padded
+        justifyContent: "space-between" // helps to keep content properly spaced
     });
 
     // Wrap the clone in a new container
     const wrapper = document.createElement('div');
     Object.assign(wrapper.style, {
-        backgroundColor: "#252525",
+        backgroundColor: "#252525", // Same dark background as the resume preview
         padding: "30px",
         width: "100%",
         minHeight: "100%",
         boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "column", // Keeps content inside wrapper in a column
+        justifyContent: "center", // Centers the content within the wrapper
     });
 
     wrapper.appendChild(cloned);
@@ -48,7 +51,7 @@ function downloadPDF() {
         html2canvas:  {
             scale: 2,
             useCORS: true,
-            backgroundColor: "#252525",
+            backgroundColor: "#252525", // Ensures background color is applied
         },
         jsPDF: {
             unit: 'in',
@@ -58,5 +61,7 @@ function downloadPDF() {
         pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
     };
 
+    // Generate and download the PDF
     html2pdf().set(opt).from(wrapper).save();
 }
+
