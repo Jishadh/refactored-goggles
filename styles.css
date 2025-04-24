@@ -5,8 +5,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: 100vh; /* fix full height */
     flex-direction: column;
+    margin: 0;
 }
 
 .container {
@@ -16,7 +17,6 @@ body {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-    height: 100%;
 }
 
 h2, h3 {
@@ -56,14 +56,13 @@ button:hover {
 .resume-preview {
     margin-top: 20px;
     padding: 20px;
-    background: #252525;
+    background-color: #252525;
+    color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-    
-    width: 90%; /* Ensures full width */
-    min-height: 100%; /* Ensures it grows with content */
-    display: flex; /* Helps in structuring content */
-    flex-direction: column; /* Stacks elements properly */
-    align-items: flex-start; /* Aligns items properly */
+    width: 90%;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
-
